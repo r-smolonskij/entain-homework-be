@@ -26,6 +26,8 @@ npm run start:dev
 
 API base is `http://localhost:3001/api`.
 
+Note: TMDB `discover` uses page-based pagination (no offset). Default response size is 20, so this API returns 20 movies per page instead of 10.
+
 ## Endpoints
 
 - `GET /api/movies?page=1` - list movies (TMDB discover)
