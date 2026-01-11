@@ -37,7 +37,20 @@ describe('MoviesService', () => {
     tmdbService.get.mockResolvedValue(response);
 
     await expect(service.findAll(2)).resolves.toBe(response);
-    expect(tmdbService.get).toHaveBeenCalledWith('/discover/movie', { page: 2 });
+    expect(tmdbService.get).toHaveBeenCalledWith('/discover/movie', {
+      page: 2,
+    });
+  });
+
+  it('search calls TMDB search endpoint', async () => {
+    const response = { results: [] };
+    tmdbService.get.mockResolvedValue(response);
+
+    await expect(service.search('matrix', 2)).resolves.toBe(response);
+    expect(tmdbService.get).toHaveBeenCalledWith('/search/movie', {
+      query: 'matrix',
+      page: 2,
+    });
   });
 
   it('findOne calls TMDB movie endpoint', async () => {

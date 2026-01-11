@@ -7,6 +7,7 @@ describe('MoviesController', () => {
   const moviesService = {
     findAll: jest.fn(),
     findOne: jest.fn(),
+    search: jest.fn(),
   };
 
   beforeEach(async () => {
@@ -28,7 +29,7 @@ describe('MoviesController', () => {
     const response = { results: [] };
     moviesService.findAll.mockResolvedValue(response);
 
-    await expect(controller.findAll()).resolves.toBe(response);
+    await expect(controller.findAll({ page: 1 })).resolves.toBe(response);
     expect(moviesService.findAll).toHaveBeenCalledTimes(1);
   });
 
@@ -36,8 +37,18 @@ describe('MoviesController', () => {
     const response = { results: [] };
     moviesService.findAll.mockResolvedValue(response);
 
-    await expect(controller.findAll('3')).resolves.toBe(response);
+    await expect(controller.findAll({ page: 3 })).resolves.toBe(response);
     expect(moviesService.findAll).toHaveBeenCalledWith(3);
+  });
+
+  it('search passes query params to service', async () => {
+    const response = { results: [] };
+    moviesService.search.mockResolvedValue(response);
+
+    await expect(controller.search({ query: 'matrix', page: 2 })).resolves.toBe(
+      response,
+    );
+    expect(moviesService.search).toHaveBeenCalledWith('matrix', 2);
   });
 
   it('findOne passes numeric id to service', async () => {

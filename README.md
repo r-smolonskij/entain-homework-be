@@ -32,6 +32,7 @@ Note: TMDB `discover` uses page-based pagination (no offset). Default response s
 
 - `GET /api/movies?page=1` - list movies (TMDB discover)
 - `GET /api/movies/:id` - single movie details with `append_to_response=images`
+- `GET /api/movies/search?query=matrix&page=1` - search movies by title (TMDB search)
 
 ## Tests
 
